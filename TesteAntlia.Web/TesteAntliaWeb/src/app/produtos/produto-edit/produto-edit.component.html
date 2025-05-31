@@ -1,0 +1,6 @@
+ <h2>Editar produto</h2>
+ <form (ngSubmit)="salvar()">
+    <label>Nome:</label>
+    <input type="text" [(ngModel)]="produto.nome" name="nome" required />
+    <button tupe="submit">Atualizar</button>
+ </form>
