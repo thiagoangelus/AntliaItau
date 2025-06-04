@@ -11,7 +11,7 @@ import { error } from 'console';
 
 export class ProdutoCreateComponent {
 
-  produto: Produto = { id:0, nome: '' };
+  produto: Produto = { cod_produto:0, des_produto: '' , sta_status:''};
 
   constructor(private produtosService: ProdutoService, private router: Router) { }
 

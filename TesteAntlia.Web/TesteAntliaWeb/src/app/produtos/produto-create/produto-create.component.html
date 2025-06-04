@@ -1,6 +1,8 @@
  <h2>Criar produto</h2>
  <form (ngSubmit)="salvar()">
     <label> Nome: </label>
-    <input type="text" [(ngModel)]="produto.nome" name="nome" required />
+      <input type="text" [(ngModel)]="produto.cod_produto" name="nome" required />
+      <input type="text" [(ngModel)]="produto.des_produto" name="nome" required />
+       <input type="text" [(ngModel)]="produto.sta_status" name="nome" required />
     <button type="submit">Salvar</button>
  </form>

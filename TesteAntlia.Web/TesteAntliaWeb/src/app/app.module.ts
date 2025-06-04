@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { ProdutoListComponent } from './produtos/produto-list/produto-list.component';
 import { ProdutoCreateComponent } from './produtos/produto-create/produto-create.component';
 import { ProdutoEditComponent } from './produtos/produto-edit/produto-edit.component';
+import { ManutencaoManualCreateComponent } from './ManutencaoManual/manutencao-manual-create/manutencao-manual-create.component';
+import { ManutencaoManualListComponent } from './ManutencaoManual/manutencao-manual-list/manutencao-manual-list.component';
 
 @NgModule({
    
@@ -15,7 +17,9 @@ import { ProdutoEditComponent } from './produtos/produto-edit/produto-edit.compo
     AppComponent,
     ProdutoListComponent,
     ProdutoCreateComponent,
-    ProdutoEditComponent
+    ProdutoEditComponent,
+    ManutencaoManualCreateComponent,
+    ManutencaoManualListComponent
   ],
   imports: [
     HttpClientModule,

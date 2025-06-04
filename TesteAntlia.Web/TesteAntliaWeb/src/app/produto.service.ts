@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 
 export interface Produto{ 
-    id: number,
-    nome: string;
+    cod_produto: number,
+    des_produto: string,
+    sta_status: string;
 }
 
 @Injectable({
@@ -13,7 +14,7 @@ export interface Produto{
 })
 
 export class ProdutoService {
-    private apiUrl = 'http://localhost:5241/api/Produto/Produto';
+    private apiUrl = 'https://localhost:7275/api/Produto/Produto';
 
     constructor(private  http : HttpClient){}
 

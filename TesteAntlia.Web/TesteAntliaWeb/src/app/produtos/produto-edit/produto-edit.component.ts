@@ -10,7 +10,7 @@ import { error } from 'console';
 })
 export class ProdutoEditComponent implements OnInit  {
 
-  produto: Produto = { id:0, nome: ''};
+    produto: Produto = { cod_produto:0, des_produto: '' , sta_status:''};
 
   constructor(
     private produtoService: ProdutoService,
