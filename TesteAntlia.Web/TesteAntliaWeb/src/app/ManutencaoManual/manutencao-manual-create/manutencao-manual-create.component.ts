@@ -10,9 +10,15 @@ import { Console, error } from 'console';
 })
 export class ManutencaoManualCreateComponent  implements OnInit {
  
-  items: any[] = [];
-  dropdownOptions: any[] = [];
-  selectedOption: number = 0; 
+  itemsProduto: any[] = [];
+  dropdownOptionsProduto: any[] = [];
+  selectedOptionProduto: number = 0; 
+
+  itemsProdutoCosif: any[] = [];
+  dropdownOptionsProdutoCosif: any[] = [];
+  selectedOptionProdutoCosif: number = 0; 
+
+  isDisabled: boolean = true; 
 
   manutencaoManual: ManutencaoManual = {  
         dat_mes: 0,  
@@ -31,20 +37,30 @@ export class ManutencaoManualCreateComponent  implements OnInit {
    constructor(private ManutencaoManualsService: ManutencaoManualService, private router: Router) { }
     
    ngOnInit(): void {
-          this.ManutencaoManualsService.getDropdownOptions().subscribe(data => {
-          
-          this.dropdownOptions = data; 
+          this.ManutencaoManualsService.getDropdownOptionsProduto().subscribe(data => { 
+          this.dropdownOptionsProduto = data; 
         });
 
-        this.ManutencaoManualsService.getItems().subscribe(data => {
-       
-          this.items = data;
+        this.ManutencaoManualsService.getItems().subscribe(data => { 
+          this.itemsProduto = data;
         });   
       }
+
+       toggleInput() {
+    this.isDisabled = !this.isDisabled; 
+  }
+
+  onProdutoCosifChange(cod_produto: number): void {
+        this.selectedOptionProdutoCosif = cod_produto; 
+        this.ManutencaoManualsService.getDropdownOptionsProdutoCosif(cod_produto).subscribe((data) => {
+        this.itemsProdutoCosif = data;
+    });
+  }
   
   salvar(): void {
-    console.log(this.selectedOption.toString());
-    this.manutencaoManual.cod_produto = this.selectedOption.toString().trim(); 
+    console.log(this.selectedOptionProduto.toString());
+    this.manutencaoManual.cod_produto = this.selectedOptionProduto.toString().trim(); 
+    this.manutencaoManual.cod_cosif = this.selectedOptionProdutoCosif.toString().trim();
     this.ManutencaoManualsService.postManutencaoManual(this.manutencaoManual).subscribe({ 
       next : () => this.router.navigate(['/manutencaoManual']),
       error: err => console.error(err)   

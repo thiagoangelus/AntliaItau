@@ -1,75 +1,79 @@
 
-<div class="container-sm">
+<div class="container-sm formCadastro">
     <h5 class="mb-3">Cadastro Movimento Manual</h5>  
-<form (ngSubmit)="salvar()">
+ <button id="btnNovo" class="btn btn-primary"  (click)="toggleInput()">Novo</button>
+<form  (ngSubmit)="salvar()">
     <div class="form-group col-sm-12"> 
         <label for="mm">Mês</label>
-        <input type="number" class="form-control" id="idmes" min="01" max="12" pattern="\d{2}" [(ngModel)]="manutencaoManual.dat_mes" name="mes" required placeholder="Digite o mês" oninput="validarMes(this)">
+        <input type="number" class="form-control" id="idmes" min="01" max="12" pattern="\d{2}" [(ngModel)]="manutencaoManual.dat_mes" name="mes" [disabled]="isDisabled" required #mesInput="ngModel" placeholder="Digite o mês" oninput="validarMes(this)">
+    
+     <div *ngIf="mesInput.invalid && mesInput.touched">
+      <small *ngIf="mesInput.errors?.['required']">O mes é obrigatório.</small>
+     </div>
     </div>
     <div class="form-group col-sm-12">
         <label for="yyyy">Ano</label>
-        <input type="number" class="form-control" id="idano" min="0001" max="9999" pattern="\d{4}" [(ngModel)]="manutencaoManual.dat_ano" name="ano" required placeholder="Digite o ano" oninput="validarAno(this)">
-    </div>
-    <div class="form-group col-sm-12">
-        <label for="00000">Lançamento</label>
-        <input type="number" class="form-control" id="idNumeo" min="000001" max="999999" pattern="\d{5}" [(ngModel)]="manutencaoManual.num_lancamento" name="numero" required placeholder="Digite o número do lancamento">
-    </div>
-    <div class="form-group col-sm-12">
-        <label for="0000">Cosif</label>
-        <input type="text" class="form-control" id="idCosif" min="000001" max="999999" pattern="\d{5}" [(ngModel)]="manutencaoManual.cod_cosif" name="cosif" required placeholder="Digite o código COSIF">
+        <input type="number" class="form-control" id="idano" min="0001" max="9999" pattern="\d{4}" [(ngModel)]="manutencaoManual.dat_ano" name="ano" [disabled]="isDisabled"  required #anoInput="ngModel" placeholder="Digite o ano" oninput="validarAno(this)">
+    
+     <div *ngIf="mesInput.invalid && mesInput.touched">
+      <small *ngIf="mesInput.errors?.['required']">O ano é obrigatório.</small>
+     </div>
+    
     </div> 
-    <div class="form-group col-sm-12">
-        <label for="dropdown">Produto</label>
-          <select id="dropdown" class="form-control" [(ngModel)]="selectedOption" name="dropdownOption">
-             <option *ngFor="let option of dropdownOptions" [value]="option.cod_produto">
-             {{option.des_produto }}
+     <div class="form-group col-sm-12">
+        <label for="dropdownProduto">Produto</label>
+          <select id="dropdownProduto" class="form-control" [(ngModel)]="selectedOptionProduto" name="dropdownOptionProduto" [disabled]="isDisabled"  (change)="onProdutoCosifChange(selectedOptionProduto)">
+           
+            <option *ngFor="let itemProduto of dropdownOptionsProduto" [value]="itemProduto.cod_produto"> 
+             {{ itemProduto.des_produto }}
          </option>
       </select>
     </div>
+    
+    <div class="form-group col-sm-12">
+      <label for="dropdownProdutoCosif">Cosif</label>
+       <select id="dropdownProdutoCosif" class="form-control" [(ngModel)]="selectedOptionProdutoCosif"  name="dropdownOptionProdutoCosif" [disabled]="isDisabled"  > 
+            <option *ngFor="let itemCosif of itemsProdutoCosif" [value]="itemCosif.cod_cosif">
+             {{ itemCosif.cod_cosif}}-{{ itemCosif.cod_classificacao }}
+        </option>
+    </select>
+    
+    </div> 
+   
     <div class="form-group col-sm-12">
         <label for="Descricao">Descricao</label>
-        <input type="text" class="form-control" id="idDescricao" [(ngModel)]="manutencaoManual.des_descricao" name="descricao" required  placeholder="Digite a descrição do produto">
+        <input type="text" class="form-control" id="idDescricao" [(ngModel)]="manutencaoManual.des_descricao" name="descricao"  [disabled]="isDisabled"  required #anoInput="ngModel"  placeholder="Digite a descrição do produto">
+     
+     <div *ngIf="mesInput.invalid && mesInput.touched">
+      <small *ngIf="mesInput.errors?.['required']">A descrição é obrigatória.</small>
+     </div>
     </div> 
     <div class="form-group col-sm-12">
         <label for="dd/MM/yyyy">Data Movimento</label>
-        <input type="date" class="form-control" id="idDataMovimento" [(ngModel)]="manutencaoManual.dat_Movimento" name="movimento" required  placeholder="Digite a data do movimento">
+        <input type="date" class="form-control" id="idDataMovimento" [(ngModel)]="manutencaoManual.dat_Movimento" name="movimento" [disabled]="isDisabled"  required #anoInput="ngModel"  placeholder="Digite a data do movimento">
+    
+    <div *ngIf="mesInput.invalid && mesInput.touched">
+      <small *ngIf="mesInput.errors?.['required']">Data é obrigatório.</small>
+     </div>
     </div>
     <div class="form-group col-sm-12">
         <label for="Usuario">Usuario</label>
-        <input type="text" class="form-control" id="idUsuario" [(ngModel)]="manutencaoManual.cod_usuario" name="usuario" required  placeholder="TESTE (Usuario fixo)" disabled>
+        <input type="text" class="form-control" id="idUsuario" [(ngModel)]="manutencaoManual.cod_usuario" name="usuario" required disabled  placeholder="TESTE (Usuario fixo)" disabled>
+    
     </div>
     <div class="form-group col-sm-12">
         <label for="Valor">Valor</label>
-        <input type="number" class="form-control" id="idValor" [(ngModel)]="manutencaoManual.val_valor" mask="separator.2" name="valor" required   placeholder="Digite o valor" >
+        <input type="number" class="form-control" id="idValor" [(ngModel)]="manutencaoManual.val_valor" mask="separator.2" name="valor" [disabled]="isDisabled"   required #anoInput="ngModel"    placeholder="Digite o valor" >
+    
+     <div *ngIf="mesInput.invalid && mesInput.touched">
+      <small *ngIf="mesInput.errors?.['required']">Data é obrigatório.</small>
+     </div>
     </div> 
-    <div class="form-group col-sm-2">
-       <button id="btnNovo" class="btn btn-primary">Novo</button>
-       <button type="submit" class="btn btn-primary">Salvar</button>
-    </div>  
-</form>
+   <button type="submit" class="btn btn-primary">Salvar</button>  
+</form>   
 </div>
 
-<script>
-      document.getElementById('btnDNovo').addEventListener('click', function() {
-      document.getElementById('idmes').disabled = false;
-    });
-  function validarAno(input) {
-    let valor = input.value;
-    if (valor.length > 4) {
-      input.setCustomValidity("Digite apenas 4 dígitos.");
-    } else {
-      input.setCustomValidity("");
-    }
-  }
-    function validarMes(input) {
-    let valor = input.value;
-    if (valor.length > 2) {
-      input.setCustomValidity("Digite apenas 2 dígitos.");
-    } else {
-      input.setCustomValidity("");
-    }
-  }
-</script>
+ 
 
 
   

@@ -20,19 +20,25 @@ export interface ManutencaoManual{
 })
 
 export class ManutencaoManualService {
-    
+
     private apiUrl = 'https://localhost:7275/api/MovimentoManual/movimento-manual';
 
     private apiUrlProduto = "https://localhost:7275/api/Produto/produto"
 
+    private apiUrlProdutoCosif = "https://localhost:7275/api/ProdutoCosif/produto-cosif"
+
     constructor(private  http : HttpClient){}
 
-    getDropdownOptions(): Observable<any[]> {
+    getDropdownOptionsProduto(): Observable<any[]> {
          return this.http.get<any[]>(`${this.apiUrlProduto}`);
     }
     getItems(): Observable<any[]> {
          return this.http.get<any[]>(`${this.apiUrlProduto}`);
     }
+
+     getDropdownOptionsProdutoCosif(cod_produto: number): Observable<any[]> {
+         return this.http.get<any[]>(`${this.apiUrlProdutoCosif}/${cod_produto}`);
+  }
 
     getManutencaoManuals(): Observable<ManutencaoManual[]>{
         return this.http.get<ManutencaoManual[]>(this.apiUrl);
